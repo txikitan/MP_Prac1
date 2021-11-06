@@ -18,85 +18,83 @@ public class Primers {
         return numeros;
     }
 
-    public static Long primerPetitV1(Long numero) {
+     public static long primerPetitV2(long numero) {
 
-        long maxPrime = -1;
-
-        while (numero % 2 == 0) {
-            maxPrime = 2;
-            numero >>= 1;
-        }
-
-        for (int i = 3; i <= Math.sqrt(numero); i += 2) {
-            while (numero % i == 0) {
-                maxPrime = i;
-                numero = numero / i;
+        // All prime numbers are odd except two
+        if(numero==2) return 2L;
+        else if (isPrime(numero)) return numero;
+        else if (numero % 2 != 0)
+            numero -= 2;
+        else
+            numero--;
+        long i, j;
+        for (i = numero; i >= 2; i -= 2) {
+            if (i % 2 == 0)
+                continue;
+            for (j = 3; j <= Math.sqrt(i); j += 2) {
+                if (i % j == 0)
+                    break;
             }
+            if (j > Math.sqrt(i))
+                return i;
         }
-
-        if (numero > 2) {
-            maxPrime = numero;
-        }
-
-        return maxPrime;
-    }
-
-    public static Long primerPetitV2(Long numero) {
-        long primeFactor = 1L;
-        long i = 2L;
-
-        while (i <= numero / i) {
-            if (numero % i == 0) {
-                primeFactor = i;
-                numero /= i;
-            } else {
-                i++;
-            }
-        }
-
-        if (primeFactor < numero) primeFactor = numero;
-
-        return primeFactor;
-    }
-
-    public static BigInteger primerGranV1(BigInteger numero) {
-        //long maxPrime = -1;
-        BigInteger maxPrime = new BigInteger("-1");
-
-        while ((numero.mod(BigInteger.TWO)).compareTo(BigInteger.ZERO)==0) {
-            maxPrime = BigInteger.TWO;
-            numero = numero.divide(BigInteger.TWO);
-        }
-        //for (int i = 3; i <= Math.sqrt(numero); i += 2) {
-        for(BigInteger i = new BigInteger("3");i.compareTo(numero.sqrt())<=0;i=i.add(BigInteger.TWO)){
-            while ((numero.mod(i)).equals(BigInteger.ZERO)) {
-                maxPrime = i;
-                numero = numero.divide(i);
-            }
-        }
-
-        if (numero.compareTo(BigInteger.TWO) > 0) {
-            maxPrime = numero;
-        }
-
-        return maxPrime;
+        // It will only be executed when n is 3
+        return 2L;
     }
 
     public static BigInteger primerGranV2(BigInteger numero) {
-        BigInteger primeFactor = BigInteger.ONE;
-        BigInteger i = new BigInteger("2");
-
-        while (i.compareTo(numero.divide(i)) <= 0) {
-            if (numero.mod(i).longValue() == 0) {
-                primeFactor = i;
-                numero = numero.divide(i);
-            } else {
-                i = i.add(BigInteger.ONE);
+        // All prime numbers are odd except two
+        if(numero.equals(BigInteger.TWO)) return BigInteger.TWO;
+        else if (isPrime(numero)) return numero;
+        else if (numero % 2 != 0)
+            numero -= 2;
+        else
+            numero--;
+        long i, j;
+        for (i = numero; i >= 2; i -= 2) {
+            if (i % 2 == 0)
+                continue;
+            for (j = 3; j <= Math.sqrt(i); j += 2) {
+                if (i % j == 0)
+                    break;
             }
+            if (j > Math.sqrt(i))
+                return i;
         }
+        // It will only be executed when n is 3
+        return 2L;
+    }
+    /**EL V1 simplemente se coloca en n-1 y va llamando a isPrime hasta que lo encuentre. **/
 
-        if (primeFactor.compareTo(numero) < 0) primeFactor = numero;
 
-        return primeFactor;
+     */
+    private static boolean isPrime(long n)
+    {
+        // Check if n is a multiple of 2
+        else if (n % 2 == 0)
+            return false;
+
+        // If not, then just check the odds
+        for (int i = 3; i <= Math.sqrt(n); i += 2)
+        {
+            if (n % i == 0)
+                return false;
+        }
+        return true;
+    }
+
+    private static boolean isPrime(BigInteger n)
+    {
+        // Check if n is a multiple of 2
+        else if (n % 2 == 0)
+        return false;
+
+        // If not, then just check the odds
+        for (int i = 3; i <= Math.sqrt(n); i += 2)
+        {
+            if (n % i == 0)
+                return false;
+        }
+        return true;
     }
 }

@@ -15,9 +15,9 @@ public class Main {
             int version = 0;
             long startTime;
             long stopTime;
-            Long time;
-            Long small;
-            Long smallResult;
+            long time;
+            long small;
+            long smallResult;
             BigInteger biggie;
             BigInteger bigresult;
             /* Leemos nombre de fichero y numero de entradas por teclado */
