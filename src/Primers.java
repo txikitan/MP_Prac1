@@ -10,8 +10,8 @@ public class Primers {
         int i=0;
         File file = new File(fileName);
         Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            numeros[i]=scanner.next();
+        while (scanner.hasNextLine()) {
+            numeros[i]=scanner.nextLine();
             i++;
         }
         scanner.close();
