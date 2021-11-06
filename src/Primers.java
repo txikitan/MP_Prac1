@@ -1,10 +1,21 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigInteger;
+import java.util.Scanner;
 
 public class Primers {
 
-    public static String[] leerFichero (File f, int nLines) {
-
+    public static String[] leerFichero (String fileName, int nLines) throws FileNotFoundException {
+        String[] numeros = new String[nLines];
+        int i=0;
+        File file = new File(fileName);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            numeros[i]=scanner.next();
+            i++;
+        }
+        scanner.close();
+        return numeros;
     }
 
     public static Long primerPetitV1(Long numero) {
@@ -64,7 +75,7 @@ public class Primers {
             }
         }
 
-        if (numero.compareTo(BigInteger.TWO)==1) {
+        if (numero.compareTo(BigInteger.TWO) > 0) {
             maxPrime = numero;
         }
 
