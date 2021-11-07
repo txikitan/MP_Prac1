@@ -1,3 +1,9 @@
+/* METODOLOGIAS DE LA PROGRAMACION - PRACTICA 1
+     Fichero main que usa la clase Primers para resolver el fichero de entrada y escribir el de salida
+
+     Gabriel Garcia gabriel.garcia@estudiants.urv.cat
+ */
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -39,36 +45,25 @@ public class Main {
 
                 biggie = new BigInteger(numeros[i]);
                 if(biggie.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0) {
-                    if(version == 1) {
-                        startTime = System.nanoTime();              // Capturamos tiempo ejecucion
-                        bigresult = Primers.primerGranV1(biggie);
-                        stopTime = System.nanoTime();
-                    }
-                    else {
-                        startTime = System.nanoTime();
-                        bigresult = Primers.primerGranV2(biggie);
-                        stopTime = System.nanoTime();
-                    }
+                    startTime = System.nanoTime();              // Capturamos tiempo ejecucion
+                    bigresult = Primers.primerGran(biggie,version);
+                    stopTime = System.nanoTime();
                     /* Escribimos en fichero */
                     time = stopTime - startTime;
                     myWriter.write(bigresult + ";" + version + ";" + time + ";\n");
                 }
                 else {
                     small = Long.parseLong(numeros[i]);
-                    if (version == 1) {
-                        startTime = System.nanoTime();
-                        smallResult = Primers.primerPetitV1(small);
-                        stopTime = System.nanoTime();
-                    } else {
-                        startTime = System.nanoTime();
-                        smallResult = Primers.primerPetitV2(small);
-                        stopTime = System.nanoTime();
-                    }
+                    startTime = System.nanoTime();
+                    smallResult = Primers.primerPetit(small,version);
+                    stopTime = System.nanoTime();
                     time = stopTime - startTime;
                     myWriter.write(smallResult + ";" + version + ";" + time + ";\n");
+                    }
+
                 }
-            }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
 
