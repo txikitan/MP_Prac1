@@ -17,7 +17,7 @@ public class Primers {
         int i=0;
         File file = new File(fileName);
         Scanner scanner = new Scanner(file);
-        while (scanner.hasNextLine()) {
+        while (scanner.hasNextLine() && i < nLines) {
             numeros[i]=scanner.nextLine();
             i++;
         }
