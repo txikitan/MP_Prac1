@@ -16,9 +16,9 @@ public class Main {
         String fileName;
         int nLines = 0;
         int version = 0;
-        long startTime;
-        long stopTime;
-        long time;
+        double startTime;
+        double stopTime;
+        double time;
         long small;
         long smallResult;
         BigInteger biggie;
@@ -26,7 +26,7 @@ public class Main {
         String[] numeros;
         try {
             FileWriter myWriter = new FileWriter("resultados.csv",false);
-            myWriter.write("N;Version;TEjec;\n");
+            myWriter.write("Resultado;Version;TEjec(s);\n");
             /* Leemos nombre de fichero y numero de entradas por teclado */
             System.out.println("Introduce el nombre del fichero de entrada: ");
             fileName = keyboard.next();
@@ -49,7 +49,7 @@ public class Main {
                     bigresult = Primers.primerGran(biggie,version);
                     stopTime = System.nanoTime();
                     /* Escribimos en fichero */
-                    time = stopTime - startTime;
+                    time = (stopTime - startTime)/1000000000;
                     myWriter.write(bigresult + ";" + version + ";" + time + ";\n");
                 }
                 else {
@@ -57,7 +57,7 @@ public class Main {
                     startTime = System.nanoTime();
                     smallResult = Primers.primerPetit(small,version);
                     stopTime = System.nanoTime();
-                    time = stopTime - startTime;
+                    time = (stopTime - startTime)/1000000000;
                     myWriter.write(smallResult + ";" + version + ";" + time + ";\n");
                     }
 
