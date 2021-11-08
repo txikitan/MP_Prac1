@@ -13,19 +13,20 @@ public class Main {
 
     public static void main (String [ ] args) {
         Scanner keyboard = new Scanner(System.in);
+        String fileName;
+        int nLines = 0;
+        int version = 0;
+        long startTime;
+        long stopTime;
+        long time;
+        long small;
+        long smallResult;
+        BigInteger biggie;
+        BigInteger bigresult;
+        String[] numeros;
         try {
-            FileWriter myWriter = new FileWriter("resultados.csv");
+            FileWriter myWriter = new FileWriter("resultados.csv",false);
             myWriter.write("N;Version;TEjec;\n");
-            String fileName;
-            int nLines = 0;
-            int version = 0;
-            long startTime;
-            long stopTime;
-            long time;
-            long small;
-            long smallResult;
-            BigInteger biggie;
-            BigInteger bigresult;
             /* Leemos nombre de fichero y numero de entradas por teclado */
             System.out.println("Introduce el nombre del fichero de entrada: ");
             fileName = keyboard.next();
@@ -33,7 +34,6 @@ public class Main {
                 System.out.println("Introduce el numero de datos:");
                 nLines = keyboard.nextInt();
             }
-            String[] numeros;
             /* Leemos fichero */
             numeros = Primers.leerFichero(fileName, nLines);
             /* Empezamos a verificar cada numero leido */
@@ -62,6 +62,7 @@ public class Main {
                     }
 
                 }
+            myWriter.close();
         }
         catch (IOException e) {
             e.printStackTrace();

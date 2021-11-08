@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Primers {
 
-    /*Metodo que lee fichero de entrada y devuelve array de strings con los numeros capturados en dicho formato */
+    /* Metodo que lee fichero de entrada y devuelve array de strings con los numeros capturados en dicho formato */
     public static String[] leerFichero (String fileName, int nLines) throws FileNotFoundException {
         String[] numeros = new String[nLines];
         int i=0;
@@ -30,25 +30,29 @@ public class Primers {
      */
      public static long primerPetit(long numero, int version) {
 
-        // All prime numbers are odd except two
-        if(numero==2) return 2L;
+         // Todos los primos son impares menos uno
+        if (numero==2) return 2L;
         else if (version == 2 && isPrimeV2(numero)) {
                 return numero;
         }
-        else if(isPrimeV1(numero)) return numero;
+        else if (version == 1){
+            if (isPrimeV1(numero)) return numero;
+        }
         else if (numero % 2 != 0)
-            numero -= 2;
+                numero -= 2;
         else
-            numero--;
+                numero--;
         long i;
         for (i = numero; i >= 2; i -= 2) {
             if (i % 2 == 0) {
                 continue;
             }
             if(version==2 && isPrimeV2(i)) return i;
-            else if(isPrimeV1(i)) return i;
+            else  if (version==1) {
+                if (isPrimeV1(i)) return i;
+            }
         }
-        // It will only be executed when n is 3
+        // Solo cuando n es 3
          return 2L;
     }
 
@@ -56,23 +60,29 @@ public class Primers {
         BigInteger mod2 = numero.mod(BigInteger.TWO);
         // All prime numbers are odd except two
 
-        if(numero.equals(BigInteger.TWO)) return BigInteger.TWO;
-        else if (version == 2 && isPrimeV2(numero)) {
-            return numero;
+        if (numero.compareTo(BigInteger.TWO)==0) return BigInteger.TWO;
+        else if (version == 2) {
+            if (isPrimeV2(numero)) return numero;
         }
-        else if(isPrimeV1(numero)) return numero;
-        else if ( mod2.compareTo(BigInteger.ZERO)!=0)
+        else if(version == 1){
+            if (isPrimeV1(numero)) return numero;
+        }
+        if (mod2.compareTo(BigInteger.ZERO) != 0) {
             numero = numero.subtract(BigInteger.TWO);
-        else
+        }
+        else {
             numero = numero.subtract(BigInteger.ONE);
+        }
         BigInteger i;
         for (i = numero; i.compareTo(BigInteger.TWO)>=0; i=i.subtract(BigInteger.TWO)) {
             BigInteger imod2 = i.mod(BigInteger.TWO);
             if (imod2.compareTo(BigInteger.ZERO)==0) {
                 continue;
             }
-            if(version==2 && isPrimeV2(i)) return i;
-            else if(isPrimeV1(i)) return i;
+            if (version==2 && isPrimeV2(i)) return i;
+            else if (version == 1){
+                if (isPrimeV1(i)) return i;
+            }
         }
         // It will only be executed when n is 3
         return BigInteger.TWO;
@@ -84,11 +94,11 @@ public class Primers {
      */
     private static boolean isPrimeV2 (long n) {
         long j;
-        // Check if n is a multiple of 2
+        // Vemos si n es par
         if (n % 2 == 0)
             return false;
 
-        // If not, then just check the odds
+        // Si no, probamos impares
         for (j = 3; j <= Math.sqrt(n); j += 2)
         {
             if (n % j == 0)
@@ -98,20 +108,24 @@ public class Primers {
     }
 
     private static boolean isPrimeV2 (BigInteger n) {
-        BigInteger j;
-        // Check if n is a multiple of 2
-        if (n.mod(n).equals(BigInteger.ZERO))
-            return false;
 
+        BigInteger j;
+        // Vemos si n es par
+        BigInteger mod2 = n.mod(BigInteger.TWO);
+        if (mod2.compareTo(BigInteger.ZERO)==0) {
+            return false;
+        }
         BigInteger square = n.sqrt();
 
-        // If not, then just check the odds
+        // Si no, probamos impares
         for (j = new BigInteger("3"); j.compareTo(square)<1; j=j.add(BigInteger.TWO))
         {
-            if (n.mod(j).compareTo(BigInteger.ZERO)==0)
+            BigInteger modj = n.mod(j);
+            if (modj.compareTo(BigInteger.ZERO)==0)
                 break;
         }
         return j.compareTo(square) > 0;
+
     }
 
     private static boolean isPrimeV1(long n) {
@@ -123,7 +137,7 @@ public class Primers {
 
     private static boolean isPrimeV1(BigInteger n){
         for(BigInteger u = n.subtract(BigInteger.ONE); u.compareTo(BigInteger.TWO)>=0;u=u.subtract(BigInteger.ONE)){
-            BigInteger umod2 = u.mod(BigInteger.TWO);
+            BigInteger umod2 = n.mod(u);
             if(umod2.compareTo(BigInteger.ZERO) == 0) return false;
         }
         return true;
