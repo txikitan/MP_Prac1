@@ -43,7 +43,7 @@ public class Primers {
         else
                 numero--;
         long i;
-        for (i = numero; i >= 2; i -= 2) {
+        for (i = numero; i >= 2; i--) {
             if (i % 2 == 0) {
                 continue;
             }
@@ -74,7 +74,7 @@ public class Primers {
             numero = numero.subtract(BigInteger.ONE);
         }
         BigInteger i;
-        for (i = numero; i.compareTo(BigInteger.TWO)>=0; i=i.subtract(BigInteger.TWO)) {
+        for (i = numero; i.compareTo(BigInteger.TWO)>=0; i=i.subtract(BigInteger.ONE)) {
             BigInteger imod2 = i.mod(BigInteger.TWO);
             if (imod2.compareTo(BigInteger.ZERO)==0) {
                 continue;
